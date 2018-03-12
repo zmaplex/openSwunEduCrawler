@@ -19,4 +19,4 @@
 
 这是我的课表的演示
 
-![]("https://raw.githubusercontent.com/zyqf/openSwunEduCrawler/master/demo.gif")
+![demo](https://raw.githubusercontent.com/zyqf/openSwunEduCrawler/master/demo.gif)
