@@ -18,7 +18,7 @@ class Core(object):
         self.account = account
         self.password = passwd
 
-    def getEnPassword(self, string, exponent, modulus):
+    def __getEnPassword(self, string, exponent, modulus):
         b64 = pB64()
         exponent = b64.b64_to_hex(exponent)
         modulus = b64.b64_to_hex(modulus)
@@ -59,8 +59,8 @@ class Core(object):
         data = [
             ('csrftoken', csrftoken),
             ('yhm', self.account),
-            ('mm', self.getEnPassword(self.password, modExp["exponent"], modExp["modulus"])),
-            ('mm', self.getEnPassword(self.password, modExp["exponent"], modExp["modulus"]))
+            ('mm', self.__getEnPassword(self.password, modExp["exponent"], modExp["modulus"])),
+            ('mm', self.__getEnPassword(self.password, modExp["exponent"], modExp["modulus"]))
         ]
         headers = {
             'Origin': 'http://211.83.241.81',
@@ -229,7 +229,7 @@ class commandShowTables(object):
 
                 elif dataDict[select][nowday][nowcTime]:
                     detail = dataDict[select][nowday][nowcTime]
-                    # 2-16周(双) => tuple (2,16)
+                    # String "2-16周(双)" => tuple (2,16)
                     period = list(map(int, detail["period"].split("周")[0].split("-")))
                     if self.Ws < period[0] or self.Ws > period[1]:
                         line.append("                ")
