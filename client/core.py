@@ -37,7 +37,7 @@ class Core(object):
             ('gnmkdm', 'index'),
             ('su', self.account),
         )
-        response = self.client.get('http://211.83.241.81/jwglxt/xtgl/index_cxYhxxIndex.html',
+        response = self.client.get('http://211.83.241.245/jwglxt/xtgl/index_cxYhxxIndex.html',
                                    params=params
                                    )
         tree = html.fromstring(response.text)
@@ -49,8 +49,8 @@ class Core(object):
         if self.account is "" or self.password is "":
             raise NameError("Account or passwd is empty")
         ntime = int(time.time())
-        indexUrl = "http://211.83.241.81/jwglxt/xtgl/login_slogin.html?language=zh_CN&_t={}".format(ntime)
-        publicKeyUrl = "http://211.83.241.81/jwglxt/xtgl/login_getPublicKey.html?time={}&_={}".format(ntime, ntime - 10)
+        indexUrl = "http://211.83.241.245/jwglxt/xtgl/login_slogin.html?language=zh_CN&_t={}".format(ntime)
+        publicKeyUrl = "http://211.83.241.245/jwglxt/xtgl/login_getPublicKey.html?time={}&_={}".format(ntime, ntime - 10)
         bodyByGet = self.client.get(indexUrl)
         modExp = self.client.get(publicKeyUrl).json()
         tree = html.fromstring(bodyByGet.text)
@@ -63,7 +63,7 @@ class Core(object):
             ('mm', self.__getEnPassword(self.password, modExp["exponent"], modExp["modulus"]))
         ]
         headers = {
-            'Origin': 'http://211.83.241.81',
+            'Origin': 'http://211.83.241.245',
             'Accept-Encoding': 'gzip, deflate',
             'Accept-Language': 'zh-CN,zh;q=0.9',
             'Upgrade-Insecure-Requests': '1',
@@ -76,7 +76,7 @@ class Core(object):
             'DNT': '1',
         }
 
-        response = self.client.post("http://211.83.241.81/jwglxt/xtgl/login_slogin.html",
+        response = self.client.post("http://211.83.241.245/jwglxt/xtgl/login_slogin.html",
                                     headers=headers,
                                     data=data)
 
@@ -99,7 +99,7 @@ class Core(object):
             raise NameError("This is not logged in !")
 
         dic = {"1": "3", "2": "12"}
-        classTableUrl = "http://211.83.241.81/jwglxt/kbcx/xskbcx_cxXsKb.html?gnmkdm=N253508"
+        classTableUrl = "http://211.83.241.245/jwglxt/kbcx/xskbcx_cxXsKb.html?gnmkdm=N253508"
         semester = dic[semester]
         data = [
             ("xnm", year),
@@ -108,6 +108,7 @@ class Core(object):
         response = self.client.post(classTableUrl,
                                     data=data
                                     )
+        print(response.json())
         return response.json()
 
 
@@ -247,7 +248,7 @@ class commandShowTables(object):
 if __name__ == '__main__':
     # 课程安排 POST 查询入口
 
-    classTableUrl = "http://211.83.241.81/jwglxt/kbcx/xskbcx_cxXsKb.html?gnmkdm=N253508"
+    classTableUrl = "http://211.83.241.24/jwglxt/kbcx/xskbcx_cxXsKb.html?gnmkdm=N253508"
     # xnm 所选学年  2017 就是 2017-2018, 2016 就是2016-2017
     # xqm 所需学期  3 是第一学期，12 是第二学期
     data = [
