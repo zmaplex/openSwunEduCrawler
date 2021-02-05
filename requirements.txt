@@ -3,7 +3,7 @@ chardet==3.0.4
 idna==2.6
 lxml==4.6.2
 pyasn1==0.4.2
-requests==2.18.4
+requests==2.20.0
 rsa==3.4.2
 six==1.11.0
 texttable==1.2.1
